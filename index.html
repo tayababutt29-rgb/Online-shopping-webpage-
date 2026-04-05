@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopPak | Premium Online Shopping Pakistan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .page-section { display: none; }
+        .active-section { display: block; animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <div class="bg-gradient-to-r from-red-600 to-red-800 text-white py-2.5 px-4 text-center text-sm font-bold shadow-lg">
+        <i class="fa fa-fire-alt mr-2"></i> 
+        SEASONAL MEGA SALE: Get up to 70% OFF from <span class="bg-white text-red-700 px-2 rounded mx-1">Oct 1st</span> to <span class="bg-white text-red-700 px-2 rounded mx-1">Oct 15th</span>!
+    </div>
+
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="bg-slate-900 text-gray-300 py-1.5 px-6 text-[11px] flex justify-between items-center">
+            <div class="flex gap-4">
+                <button onclick="showSection('about')" class="hover:text-white transition">About Us</button>
+                <button onclick="showSection('help')" class="hover:text-white transition">Help Center</button>
+                <span><i class="fa fa-phone mr-1"></i> 021-111-111-111</span>
+            </div>
+            <div class="hidden md:block">Trusted by 1M+ Customers across Pakistan</div>
+        </div>
+
+        <div class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
+            <div class="text-3xl font-extrabold text-slate-900 tracking-tighter cursor-pointer" onclick="showSection('home')">
+                SHOP<span class="text-red-600">PAK</span><span class="text-blue-500">.</span>
+            </div>
+
+            <div class="flex-grow max-w-2xl order-3 lg:order-2 w-full lg:w-auto">
+                <div class="flex border-2 border-slate-900 rounded-full overflow-hidden focus-within:ring-2 ring-red-200 transition">
+                    <input type="text" placeholder="Search for Grocery, Mobiles, Cosmetics..." 
+                           class="w-full px-6 py-2.5 outline-none text-sm">
+                    <button class="bg-slate-900 text-white px-8 hover:bg-red-600 transition">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-6 order-2 lg:order-3 text-slate-700">
+                <div class="flex flex-col items-center cursor-pointer hover:text-red-600 transition">
+                    <i class="fa fa-user-circle text-xl"></i>
+                    <span class="text-[10px] font-bold">Account</span>
+                </div>
+                <div class="flex flex-col items-center cursor-pointer hover:text-red-600 transition relative">
+                    <i class="fa fa-shopping-cart text-xl"></i>
+                    <span class="absolute -top-1 -right-2 bg-red-600 text-white text-[9px] rounded-full px-1.5 py-0.5">24</span>
+                    <span class="text-[10px] font-bold">Cart</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-100 bg-white">
+            <div class="container mx-auto px-4 py-3 flex gap-8 text-xs font-bold text-slate-600 overflow-x-auto no-scrollbar uppercase tracking-wider">
+                <button onclick="loadProducts('Cosmetics')" class="hover:text-red-600 border-b-2 border-transparent hover:border-red-600 pb-1 transition-all">Cosmetics</button>
+                <button onclick="loadProducts('Groceries')" class="hover:text-red-600 border-b-2 border-transparent hover:border-red-600 pb-1 transition-all">Groceries</button>
+                <button onclick="loadProducts('Mobiles')" class="hover:text-red-600 border-b-2 border-transparent hover:border-red-600 pb-1 transition-all">Mobiles</button>
+                <button onclick="loadProducts('Fashion')" class="hover:text-red-600 border-b-2 border-transparent hover:border-red-600 pb-1 transition-all">Fashion</button>
+                <button onclick="loadProducts('Electronics')" class="hover:text-red-600 border-b-2 border-transparent hover:border-red-600 pb-1 transition-all">Electronics</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="min-h-screen">
+        
+        <section id="home" class="page-section active-section">
+            <div class="relative w-full h-[500px] bg-slate-200 flex items-center justify-center text-center">
+                <div class="absolute inset-0 bg-cover bg-center opacity-40" style="background-image: url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&q=80&w=2070');"></div>
+                <div class="relative z-10 p-6">
+                    <h1 class="text-6xl font-black text-slate-900 mb-4 tracking-tight">SHOP THE BEST<br>OF PAKISTAN</h1>
+                    <p class="text-lg text-slate-700 max-w-xl mx-auto mb-8 font-medium">Get your favorite brands delivered at your doorstep in Karachi, Lahore & Islamabad.</p>
+                    <button onclick="loadProducts('Electronics')" class="bg-red-600 text-white px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition shadow-xl">Shop Latest Deals</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="product-page" class="page-section container mx-auto px-4 py-16">
+            <div class="flex items-center justify-between mb-10 border-b-2 border-gray-100 pb-4">
+                <h2 id="current-cat" class="text-4xl font-black text-slate-900 uppercase">Category Name</h2>
+                <span class="text-gray-400 font-bold">Showing 16 Products</span>
+            </div>
+            
+            <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                </div>
+        </section>
+
+        <section id="about" class="page-section container mx-auto px-4 py-20 max-w-4xl">
+            <h2 class="text-4xl font-black mb-8 text-center">About Our Legacy</h2>
+            <p class="text-gray-600 leading-relaxed text-lg text-center">Inspired by the excellence of retail in Karachi, ShopPak provides a seamless bridge between quality products and Pakistani households. We focus on 100% authenticity, from local farm groceries to imported electronics, ensuring every click results in happiness.</p>
+        </section>
+
+        <section id="help" class="page-section container mx-auto px-4 py-20 max-w-2xl">
+            <h2 class="text-4xl font-black mb-10 text-center">Help & Support</h2>
+            <div class="space-y-4">
+                <div class="bg-white p-6 rounded-xl shadow-sm border">
+                    <h3 class="font-bold text-lg mb-2"><i class="fa fa-truck mr-2 text-red-600"></i> Shipping Policy</h3>
+                    <p class="text-gray-500">Free delivery on orders over PKR 5,000. Next-day delivery available in Karachi.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border">
+                    <h3 class="font-bold text-lg mb-2"><i class="fa fa-undo mr-2 text-red-600"></i> Returns & Refunds</h3>
+                    <p class="text-gray-500">7-day easy return policy for all unused items with original packaging.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-900 text-white pt-20 pb-10 mt-20">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div>
+                <h3 class="text-3xl font-black mb-4">SHOP<span class="text-red-500">PAK</span></h3>
+                <p class="text-gray-400 text-sm">Your most trusted partner for daily essentials and luxury electronics in Pakistan.</p>
+            </div>
+            
+            <div>
+                <h4 class="font-bold mb-6 text-red-500">Customer Service</h4>
+                <ul class="space-y-3 text-sm text-gray-400">
+                    <li><button onclick="showSection('help')">Track My Order</button></li>
+                    <li><button onclick="showSection('about')">Contact Us</button></li>
+                    <li>Privacy Policy</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold mb-6 text-red-500">Connect With Us</h4>
+                <div class="flex gap-6 text-2xl">
+                    <a href="#" class="hover:text-blue-500 transition"><i class="fab fa-facebook-square"></i></a>
+                    <a href="#" class="hover:text-pink-500 transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-red-600 transition"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="font-bold mb-6 text-red-500">Send Feedback</h4>
+                <textarea class="w-full bg-slate-800 border-none rounded-lg p-3 text-white text-sm mb-3" rows="3" placeholder="Tell us what you think..."></textarea>
+                <button class="bg-red-600 w-full py-2.5 rounded-lg font-bold hover:bg-red-700 transition">Submit Feedback</button>
+            </div>
+        </div>
+        <div class="border-t border-slate-800 mt-16 pt-8 text-center text-gray-500 text-xs">
+            © 2026 ShopPak Online (Pvt) Ltd. Karachi, Pakistan.
+        </div>
+    </footer>
+
+    
+               <script>
+        // Page Flow Control
+        function showSection(id) {
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-section'));
+            document.getElementById(id).classList.add('active-section');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Product Engine with Category-Specific Images & Names
+        function loadProducts(category) {
+            showSection('product-page');
+            document.getElementById('current-cat').innerText = category;
+            
+            const container = document.getElementById('product-container');
+            container.innerHTML = ''; // Clear previous items
+
+            // 1. Define specific keywords for the image API
+            const categoryKeywords = {
+                'Cosmetics': 'makeup,skincare,lipstick',
+                'Groceries': 'grocery,vegetables,fruits',
+                'Mobiles': 'smartphone,iphone,mobile',
+                'Fashion': 'clothing,fashion,style',
+                'Electronics': 'gadget,laptop,headphones'
+            };
+
+            // 2. Define realistic product names for each category
+            const categoryNames = {
+                'Cosmetics': ['Matte Lipstick', 'Face Serum', 'Mascara Black', 'Skin Toner', 'Foundation', 'Eye Shadow', 'Sunscreen SPF 50', 'Night Cream'],
+                'Groceries': ['Basmati Rice', 'Cooking Oil', 'Green Tea', 'Organic Honey', 'Wheat Flour', 'Dry Fruits', 'Spices Box', 'Fresh Pulses'],
+                'Mobiles': ['iPhone 15 Pro', 'Samsung S24 Ultra', 'Google Pixel 8', 'Xiaomi 14', 'OnePlus 12', 'Infinix Note', 'Vivo V30', 'Realme GT'],
+                'Fashion': ['Cotton Kurta', 'Denim Jacket', 'Silk Scarf', 'Leather Shoes', 'Wrist Watch', 'Sunglasses', 'Casual Tee', 'Handbag'],
+                'Electronics': ['Smart TV 4K', 'Laptop Pro', 'Bluetooth Headset', 'Gaming Mouse', 'Air Purifier', 'Smart Watch', 'Power Bank', 'Drone Camera']
+            };
+
+            const keyword = categoryKeywords[category] || 'shopping';
+            const namesList = categoryNames[category] || [];
+
+            // Generate 16 products dynamically
+            for(let i = 1; i <= 16; i++) {
+                const price = Math.floor(Math.random() * (12000 - 500) + 500);
+                
+                // Use a realistic name if available, otherwise use a generic numbered one
+                const specificName = namesList[i-1] || `${category} Premium Pack ${i}`;
+                
+                // Using a more reliable category-specific image source
+                const imageUrl = `https://loremflickr.com/500/500/${keyword}?lock=${i + category.length}`;
+                
+                container.innerHTML += `
+                <div class="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-2xl transition duration-500 group">
+                    <div class="relative overflow-hidden">
+                        <img src="${imageUrl}" 
+                             alt="${specificName}" 
+                             class="w-full h-56 object-cover group-hover:scale-110 transition duration-700 bg-gray-200">
+                        <div class="absolute top-3 left-3 bg-red-600 text-white text-[10px] px-3 py-1 font-black rounded-full uppercase tracking-widest shadow-lg">New Arrival</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-slate-900 mb-2 truncate">${specificName}</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-4">
+                            High-quality authentic ${category} product. Verified for durability and performance. 100% Genuine.
+                        </p>
+                        <div class="flex items-center justify-between mt-auto">
+                            <div>
+                                <span class="text-[10px] text-gray-400 block line-through">Rs. ${Math.floor(price * 1.3).toLocaleString()}</span>
+                                <span class="text-xl font-black text-slate-900 leading-none">Rs. ${price.toLocaleString()}</span>
+                            </div>
+                            <button class="bg-slate-900 text-white w-10 h-10 rounded-full hover:bg-red-600 transition flex items-center justify-center shadow-lg">
+                                <i class="fa fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>`;
+            }
+        }
+    </script>
+    }
+}
+</body>
+          </html>
