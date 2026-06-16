@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght=300;400;600;700;800&display=swap');
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .page-section { display: none; }
         .active-section { display: block; animation: fadeIn 0.5s ease-in; }
@@ -39,8 +39,7 @@
 
             <div class="flex-grow max-w-2xl order-3 lg:order-2 w-full lg:w-auto">
                 <div class="flex border-2 border-slate-900 rounded-full overflow-hidden focus-within:ring-2 ring-red-200 transition">
-                    <input type="text" placeholder="Search for Grocery, Mobiles, Cosmetics..." 
-                           class="w-full px-6 py-2.5 outline-none text-sm">
+                    <input type="text" placeholder="Search for Grocery, Mobiles, Cosmetics..." class="w-full px-6 py-2.5 outline-none text-sm">
                     <button class="bg-slate-900 text-white px-8 hover:bg-red-600 transition">
                         <i class="fa fa-search"></i>
                     </button>
@@ -52,9 +51,9 @@
                     <i class="fa fa-user-circle text-xl"></i>
                     <span class="text-[10px] font-bold">Account</span>
                 </div>
-                <div class="flex flex-col items-center cursor-pointer hover:text-red-600 transition relative">
+                <div onclick="openCheckout()" class="flex flex-col items-center cursor-pointer hover:text-red-600 transition relative">
                     <i class="fa fa-shopping-cart text-xl"></i>
-                    <span class="absolute -top-1 -right-2 bg-red-600 text-white text-[9px] rounded-full px-1.5 py-0.5">24</span>
+                    <span id="cart-counter" class="absolute -top-1 -right-2 bg-red-600 text-white text-[9px] rounded-full px-1.5 py-0.5 font-bold">0</span>
                     <span class="text-[10px] font-bold">Cart</span>
                 </div>
             </div>
@@ -87,11 +86,59 @@
         <section id="product-page" class="page-section container mx-auto px-4 py-16">
             <div class="flex items-center justify-between mb-10 border-b-2 border-gray-100 pb-4">
                 <h2 id="current-cat" class="text-4xl font-black text-slate-900 uppercase">Category Name</h2>
-                <span class="text-gray-400 font-bold">Showing 16 Products</span>
+                <span id="items-count" class="text-gray-400 font-bold">Showing 16 Products</span>
             </div>
             
             <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                 </div>
+        </section>
+
+        <section id="checkout-page" class="page-section container mx-auto px-4 py-16 max-w-4xl">
+            <h2 class="text-4xl font-black mb-8 text-center text-slate-900">Your Shopping Cart & Checkout</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="bg-white p-6 rounded-2xl border shadow-sm">
+                    <h3 class="text-xl font-bold mb-4 border-b pb-2"><i class="fa fa-shopping-basket text-red-600 mr-2"></i> Selected Items</h3>
+                    <div id="checkout-items-list" class="space-y-4 max-h-60 overflow-y-auto pr-2">
+                        <p class="text-gray-500 italic">Your cart is empty. Go add some awesome products first!</p>
+                    </div>
+                    <div class="border-t mt-6 pt-4 font-black text-xl flex justify-between text-slate-900">
+                        <span>Total Payable:</span>
+                        <span id="checkout-total">Rs. 0</span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border shadow-sm">
+                    <h3 class="text-xl font-bold mb-4 border-b pb-2"><i class="fa fa-truck text-red-600 mr-2"></i> Cash On Delivery Details</h3>
+                    <form id="orderForm" onsubmit="placeOrder(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">FULL NAME *</label>
+                            <input type="text" required id="custName" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 ring-red-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">PHONE NUMBER *</label>
+                            <input type="tel" required id="custPhone" placeholder="e.g. 03001234567" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 ring-red-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">SHIPPING ADDRESS *</label>
+                            <textarea required id="custAddress" rows="3" placeholder="House/Apartment, Street Name, Sector/Area" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 ring-red-500 outline-none"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">CITY *</label>
+                            <select id="custCity" class="w-full border rounded-lg p-2.5 text-sm focus:ring-2 ring-red-500 outline-none">
+                                <option>Karachi</option>
+                                <option>Lahore</option>
+                                <option>Islamabad</option>
+                                <option>Rawalpindi</option>
+                                <option>Faisalabad</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="bg-red-600 text-white w-full py-3 rounded-lg font-bold hover:bg-red-700 transition shadow-lg uppercase tracking-wider mt-2">
+                            Confirm Order (Cash on Delivery)
+                        </button>
+                    </form>
+                </div>
+            </div>
         </section>
 
         <section id="about" class="page-section container mx-auto px-4 py-20 max-w-4xl">
@@ -124,7 +171,7 @@
             <div>
                 <h4 class="font-bold mb-6 text-red-500">Customer Service</h4>
                 <ul class="space-y-3 text-sm text-gray-400">
-                    <li><button onclick="showSection('help')">Track My Order</button></li>
+                    <li><button onclick="openCheckout()">Track My Order</button></li>
                     <li><button onclick="showSection('about')">Contact Us</button></li>
                     <li>Privacy Policy</li>
                 </ul>
@@ -143,7 +190,7 @@
             <div>
                 <h4 class="font-bold mb-6 text-red-500">Send Feedback</h4>
                 <textarea class="w-full bg-slate-800 border-none rounded-lg p-3 text-white text-sm mb-3" rows="3" placeholder="Tell us what you think..."></textarea>
-                <button class="bg-red-600 w-full py-2.5 rounded-lg font-bold hover:bg-red-700 transition">Submit Feedback</button>
+                <button onclick="alert('Thank you for your feedback!')" class="bg-red-600 w-full py-2.5 rounded-lg font-bold hover:bg-red-700 transition">Submit Feedback</button>
             </div>
         </div>
         <div class="border-t border-slate-800 mt-16 pt-8 text-center text-gray-500 text-xs">
@@ -151,53 +198,131 @@
         </div>
     </footer>
 
-    
-               <script>
-        // Page Flow Control
+    <script>
+        // Global variables state maintain karne ke liye
+        let cart = [];
+
+        // Page Navigation Control
         function showSection(id) {
             document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-section'));
-            document.getElementById(id).classList.add('active-section');
+            const targetSection = document.getElementById(id);
+            if(targetSection) {
+                targetSection.classList.add('active-section');
+            }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Product Engine with Category-Specific Images & Names
+        // Cart Data Counter ko update karne ka function
+        function updateCartUI() {
+            document.getElementById('cart-counter').innerText = cart.length;
+        }
+
+        // Add to cart process logic
+        function addToCart(name, price) {
+            cart.push({ name: name, price: parseInt(price) });
+            updateCartUI();
+            alert(`${name} has been added to your cart!`);
+        }
+
+        // Checkout page open karne par cart data load karna
+        function openCheckout() {
+            showSection('checkout-page');
+            const listContainer = document.getElementById('checkout-items-list');
+            const totalContainer = document.getElementById('checkout-total');
+            
+            if (cart.length === 0) {
+                listContainer.innerHTML = `<p class="text-gray-500 italic">Your cart is empty. Go add some awesome products first!</p>`;
+                totalContainer.innerText = "Rs. 0";
+                return;
+            }
+
+            listContainer.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                listContainer.innerHTML += `
+                    <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg border">
+                        <div>
+                            <p class="font-bold text-sm text-slate-900">${item.name}</p>
+                            <p class="text-xs text-gray-400">Standard Delivery</p>
+                        </div>
+                        <div class="text-right flex items-center gap-4">
+                            <span class="font-bold text-sm text-slate-800">Rs. ${item.price.toLocaleString()}</span>
+                            <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 text-xs"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            totalContainer.innerText = `Rs. ${total.toLocaleString()}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+            openCheckout();
+        }
+
+        // Fake Order placement handling
+        function placeOrder(event) {
+            event.preventDefault(); // page reload rokne k liye
+            
+            if(cart.length === 0) {
+                alert("Cannot place order! Your cart is completely empty.");
+                return;
+            }
+
+            const name = document.getElementById('custName').value;
+            const phone = document.getElementById('custPhone').value;
+            const address = document.getElementById('custAddress').value;
+            const city = document.getElementById('custCity').value;
+
+            // Delivery logic confirmation message box
+            alert(`🎉 Congratulations ${name}!\nYour order has been placed successfully from ${city}.\n\n🚚 Delivery details sent to ${phone}.\nItems will reach your address: "${address}" within 2-4 business days via Cash On Delivery.`);
+            
+            // Order complete hone ke baad cart reset karein
+            cart = [];
+            updateCartUI();
+            document.getElementById('orderForm').reset();
+            showSection('home');
+        }
+
+        // Product Engine (Fixes identical images and missing functionalities)
         function loadProducts(category) {
             showSection('product-page');
             document.getElementById('current-cat').innerText = category;
             
             const container = document.getElementById('product-container');
-            container.innerHTML = ''; // Clear previous items
+            container.innerHTML = ''; // Purana list clear karein
 
-            // 1. Define specific keywords for the image API
+            // Keywords matching for multiple un-cached random image fetching
             const categoryKeywords = {
-                'Cosmetics': 'makeup,skincare,lipstick',
-                'Groceries': 'grocery,vegetables,fruits',
-                'Mobiles': 'smartphone,iphone,mobile',
-                'Fashion': 'clothing,fashion,style',
-                'Electronics': 'gadget,laptop,headphones'
+                'Cosmetics': 'cosmetics,makeup,lipstick',
+                'Groceries': 'groceries,fruit,vegetable',
+                'Mobiles': 'smartphone,mobile,phone',
+                'Fashion': 'clothes,apparel,fashion',
+                'Electronics': 'gadget,tech,electronics'
             };
 
-            // 2. Define realistic product names for each category
             const categoryNames = {
-                'Cosmetics': ['Matte Lipstick', 'Face Serum', 'Mascara Black', 'Skin Toner', 'Foundation', 'Eye Shadow', 'Sunscreen SPF 50', 'Night Cream'],
-                'Groceries': ['Basmati Rice', 'Cooking Oil', 'Green Tea', 'Organic Honey', 'Wheat Flour', 'Dry Fruits', 'Spices Box', 'Fresh Pulses'],
-                'Mobiles': ['iPhone 15 Pro', 'Samsung S24 Ultra', 'Google Pixel 8', 'Xiaomi 14', 'OnePlus 12', 'Infinix Note', 'Vivo V30', 'Realme GT'],
-                'Fashion': ['Cotton Kurta', 'Denim Jacket', 'Silk Scarf', 'Leather Shoes', 'Wrist Watch', 'Sunglasses', 'Casual Tee', 'Handbag'],
-                'Electronics': ['Smart TV 4K', 'Laptop Pro', 'Bluetooth Headset', 'Gaming Mouse', 'Air Purifier', 'Smart Watch', 'Power Bank', 'Drone Camera']
+                'Cosmetics': ['Matte Lipstick', 'Face Serum', 'Mascara Black', 'Skin Toner', 'Liquid Foundation', 'Eye Shadow Palette', 'Sunscreen SPF 50', 'Hydrating Night Cream', 'Blush Powder', 'Nail Polish Pack', 'Makeup Primer', 'Face Wash', 'Cleansing Milk', 'Lip Gloss Glow', 'Concealer Stick', 'Eyebrow Pencil'],
+                'Groceries': ['Basmati Rice 5KG', 'Premium Cooking Oil', 'Organic Green Tea', 'Pure Honey Jar', 'Chakki Wheat Flour', 'Premium Dry Fruits', 'Spices Combo Box', 'Fresh Red Pulses', 'White Sugar 1KG', 'Olives Jar', 'Powder Milk', 'Natural Oats Packet', 'Instant Coffee Powder', 'Tomato Ketchup', 'Pink Himalayan Salt', 'Apple Cider Vinegar'],
+                'Mobiles': ['iPhone 15 Pro Max', 'Samsung Galaxy S24 Ultra', 'Google Pixel 8 Pro', 'Xiaomi 14 Pro', 'OnePlus 12 R', 'Infinix Note 40', 'Vivo V30 Elegant', 'Realme GT Neo', 'Redmi Note 13', 'Tecno Camon 30', 'Oppo Reno 11', 'Motorola Edge 50', 'Samsung A55', 'Infinix Hot 40', 'Poco X6 Pro', 'Nokia G42 5G'],
+                'Fashion': ['Mens Cotton Kurta', 'Premium Denim Jacket', 'Pure Silk Scarf', 'Leather Formal Shoes', 'Classic Wrist Watch', 'Aviator Sunglasses', 'Casual White Tee', 'Luxury Handbag', 'Ladies Linen Kurti', 'Slim Fit Chino Pants', 'Leather Wallet', 'Sports Running Sneakers', 'Casual Polo Shirt', 'Winter Bomber Jacket', 'Ankle Socks Pack', 'Traditional Khussa'],
+                'Electronics': ['Smart LED TV 4K', 'Laptop Pro 16-Inch', 'Wireless Bluetooth Headset', 'RGB Gaming Mouse', 'Smart Air Purifier', 'Fitness Smart Watch', 'Fast Power Bank 20k', '4K Drone Camera', 'Mechanical Keyboard', 'Portable Bluetooth Speaker', 'Electric Trimmer Shaver', 'Gaming Console Pro', 'External Hard Drive 1TB', 'Wi-Fi Router 6', 'DSLR Camera Kit', 'Noise Cancelling Earbuds']
             };
 
-            const keyword = categoryKeywords[category] || 'shopping';
+            const keyword = categoryKeywords[category] || 'shop';
             const namesList = categoryNames[category] || [];
 
             // Generate 16 products dynamically
             for(let i = 1; i <= 16; i++) {
                 const price = Math.floor(Math.random() * (12000 - 500) + 500);
-                
-                // Use a realistic name if available, otherwise use a generic numbered one
                 const specificName = namesList[i-1] || `${category} Premium Pack ${i}`;
                 
-                // Using a more reliable category-specific image source
-                const imageUrl = `https://loremflickr.com/500/500/${keyword}?lock=${i + category.length}`;
+                // FIXED: dynamic lock appending string length unique hash logic taake products images duplicate na hon
+                const imageUrl = `https://loremflickr.com/500/500/${keyword}?lock=${i + (category.charCodeAt(0) * 7)}`;
                 
                 container.innerHTML += `
                 <div class="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-2xl transition duration-500 group">
@@ -207,17 +332,19 @@
                              class="w-full h-56 object-cover group-hover:scale-110 transition duration-700 bg-gray-200">
                         <div class="absolute top-3 left-3 bg-red-600 text-white text-[10px] px-3 py-1 font-black rounded-full uppercase tracking-widest shadow-lg">New Arrival</div>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-lg font-bold text-slate-900 mb-2 truncate">${specificName}</h3>
-                        <p class="text-gray-500 text-xs leading-relaxed mb-4">
-                            High-quality authentic ${category} product. Verified for durability and performance. 100% Genuine.
-                        </p>
+                    <div class="p-6 flex flex-col justify-between h-[230px]">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-900 mb-2 truncate">${specificName}</h3>
+                            <p class="text-gray-500 text-xs leading-relaxed mb-4 line-clamp-2">
+                                High-quality authentic ${category} product. Verified for durability and performance. 100% Genuine product sourced from original dealers.
+                            </p>
+                        </div>
                         <div class="flex items-center justify-between mt-auto">
                             <div>
                                 <span class="text-[10px] text-gray-400 block line-through">Rs. ${Math.floor(price * 1.3).toLocaleString()}</span>
                                 <span class="text-xl font-black text-slate-900 leading-none">Rs. ${price.toLocaleString()}</span>
                             </div>
-                            <button class="bg-slate-900 text-white w-10 h-10 rounded-full hover:bg-red-600 transition flex items-center justify-center shadow-lg">
+                            <button onclick="addToCart('${specificName.replace(/'/g, "\\'")}', ${price})" class="bg-slate-900 text-white w-10 h-10 rounded-full hover:bg-red-600 transition flex items-center justify-center shadow-lg">
                                 <i class="fa fa-cart-plus"></i>
                             </button>
                         </div>
@@ -226,7 +353,5 @@
             }
         }
     </script>
-    }
-}
 </body>
-          </html>
+</html>
